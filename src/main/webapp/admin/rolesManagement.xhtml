@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="pnlFrmRole">
+		<p:outputPanel id="pnlRole">
+			<p:growl id="roleGrowl" showDetail="true" sticky="true" />
+			<p:fieldset legend="Personal Details">
+				<p:panelGrid columns="2"
+					style="margin-left:auto;margin-right:auto;width: 80%;">
+					<h:outputText value="New Role" styleClass="inputTextWidth" />
+					<p:inputText value="#{beanRole.selectedRole.roleName}"
+						styleClass="inputTextWidth"></p:inputText>
+					<p:commandButton action="#{docSchCtrlBean.createRole}" value="Create"
+						id="btnCreateRole" update="pnlRole">
+					</p:commandButton>
+				</p:panelGrid>
+			</p:fieldset>
+			<p:outputPanel style="width:98%">
+				<p:fieldset legend="Available Roles" style="margin-top:20px;width:65%;float:left;min-height:350px;overflow:auto">
+				
+				<p:dataTable id="tblRoles" var="role" value="#{beanRole.allRoles}"
+					paginator="true" rows="10" paginatorAlwaysVisible="false" >
+					<f:facet name="header">  
+           				<p:commandButton value="Refresh" action="#{docSchCtrlBean.loadRoles}" update="tblRoles" style="align:right"/>  
+        			</f:facet>
+					<p:column headerText="Id">  
+		            #{role.roleId}  
+        		</p:column>
+					<p:column headerText="Name">  
+		            #{role.roleName} 
+        		</p:column>
+				</p:dataTable>
+			</p:fieldset>
+			<p:fieldset
+				legend="Users having this role : #{beanRole.selectedRole.roleName} "
+				style="margin-top:20px;width:25%;float:right;min-height:350px;overflow:auto">
+
+			</p:fieldset>
+				
+				
+			</p:outputPanel>
+						<p:blockUI block="pnlRole" trigger="tblRoles,btnCreateRole">  
+        	LOADING<br />
+				<p:graphicImage value="/images/ajax-loader.gif" />
+			</p:blockUI>
+			</p:outputPanel>
+	</h:form>
+	
+
+</ui:composition>
+
