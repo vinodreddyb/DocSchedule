@@ -16,6 +16,24 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>cupertino</param-value>
 	</context-param>
+	
+	<!-- Spring config start -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	  </listener>
+	  <listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	  </listener>
+	<!-- Spring config end -->  
 	<!-- Welcome page -->
 	<welcome-file-list>
 		<welcome-file>admin.jsf</welcome-file>

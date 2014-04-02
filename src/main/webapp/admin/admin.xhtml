@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/layout.xhtml">
+	<ui:define name="content">
+		<p:ajaxStatus onstart="PF('statusDialog').show();"
+			onsuccess="PF('statusDialog').hide();" />
+
+		<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+			draggable="false" closable="false">
+			<p:graphicImage value="/images/ajax-loader.gif" />
+		</p:dialog>
+		
+		<p:tabView id="pnlTabAdmin"  style="width:100%" >
+			<p:ajax event="tabChange" listener="#{docSchCtrlBean.onTabChange}"
+				update="pnlTabAdmin:pnlFrmRole:pnlRole" />
+			<p:tab title="User management">
+
+			</p:tab>
+			<p:tab id="tabRole" title="Role management">
+				
+				<ui:include src="/admin/rolesManagement.xhtml" />
+				
+			</p:tab>
+			<p:tab title="Appointment management">
+
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>
+</html>
