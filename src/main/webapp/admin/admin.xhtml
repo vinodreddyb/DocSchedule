@@ -9,17 +9,16 @@
 	<ui:define name="content">
 		<p:ajaxStatus onstart="PF('statusDialog').show();"
 			onsuccess="PF('statusDialog').hide();" />
-
 		<p:dialog modal="true" widgetVar="statusDialog" header="Status"
-			draggable="false" closable="false">
-			<p:graphicImage value="/images/ajax-loader.gif" />
+			draggable="false" closable="false" appendToBody="true" height="100" width="200">
+			<p:graphicImage value="/images/ajax-loader.gif"  style="margin: 0 30px; width: 100px"/>
 		</p:dialog>
 		
 		<p:tabView id="pnlTabAdmin"  style="width:100%" >
 			<p:ajax event="tabChange" listener="#{docSchCtrlBean.onTabChange}"
 				update="pnlTabAdmin:pnlFrmRole:pnlRole" />
 			<p:tab title="User management">
-
+				
 			</p:tab>
 			<p:tab id="tabRole" title="Role management">
 				

@@ -4,50 +4,79 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="pnlFrmRole">
-		<p:outputPanel id="pnlRole">
+		<p:panelGrid id="pnlRole" style="width:100%">
 			<p:growl id="roleGrowl" showDetail="true" sticky="true" />
-			<p:fieldset legend="Personal Details">
-				<p:panelGrid columns="2"
-					style="margin-left:auto;margin-right:auto;width: 80%;">
-					<h:outputText value="New Role" styleClass="inputTextWidth" />
-					<p:inputText value="#{beanRole.selectedRole.roleName}"
-						styleClass="inputTextWidth"></p:inputText>
-					<p:commandButton action="#{docSchCtrlBean.createRole}" value="Create"
-						id="btnCreateRole" update="pnlRole">
-					</p:commandButton>
-				</p:panelGrid>
-			</p:fieldset>
-			<p:outputPanel style="width:98%">
-				<p:fieldset legend="Available Roles" style="margin-top:20px;width:65%;float:left;min-height:350px;overflow:auto">
-				
-				<p:dataTable id="tblRoles" var="role" value="#{beanRole.allRoles}"
-					paginator="true" rows="10" paginatorAlwaysVisible="false" >
-					<f:facet name="header">  
-           				<p:commandButton value="Refresh" action="#{docSchCtrlBean.loadRoles}" update="tblRoles" style="align:right"/>  
-        			</f:facet>
-					<p:column headerText="Id">  
-		            #{role.roleId}  
-        		</p:column>
-					<p:column headerText="Name">  
-		            #{role.roleName} 
-        		</p:column>
-				</p:dataTable>
-			</p:fieldset>
-			<p:fieldset
-				legend="Users having this role : #{beanRole.selectedRole.roleName} "
-				style="margin-top:20px;width:25%;float:right;min-height:350px;overflow:auto">
+			<p:row>
+				<p:column colspan="2">
+					<p:fieldset legend="Create Roles">
+						<p:panelGrid columns="2"
+							style="margin-left:auto;margin-right:auto;width: 80%;">
+							<h:outputText value="New Role" styleClass="inputTextWidth" />
+							<p:inputText value="#{beanRole.selectedRole.roleName}"
+								styleClass="inputTextWidth"></p:inputText>
+							<p:commandButton action="#{docSchCtrlBean.createRole}"
+								value="Create" id="btnCreateRole" update="pnlRole">
+							</p:commandButton>
+						</p:panelGrid>
+					</p:fieldset>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:fieldset legend="Available Roles">
+						
+						<p:dataTable id="tblRoles" var="role" value="#{beanRole.allRoles}" 
+							paginator="true" rows="10" paginatorAlwaysVisible="false">
+								
+							
+							<p:column>
+							<f:facet name="header">
+									<p:commandLink title="Refresh" 
+										actionListener="#{docSchCtrlBean.loadRoles}" update="@form:pnlRole"
+										style="float:left">
+										 <p:graphicImage url="../images/icons/refresh.gif" />
+									</p:commandLink>
+									
+								</f:facet>
+		           			 		#{role.roleName} 
+        					</p:column>
+							<p:column>
+								<p:commandLink  title="Delete"
+										update="@form:pnlRole :#{p:component('dlgShow')}"
+										style="margin-left:2px" actionListener="#{docSchCtrlBean.deleteRole(role)}" 
+										oncomplete="PF('dlgShow').show()">
+										 <p:graphicImage url="../images/icons/delete.png" />
+									</p:commandLink>
+									<p:commandLink  title="Update"
+										update="@form:pnlRole :#{p:component('dlgShow')}" actionListener="#{docSchCtrlBean.editRole(role)}"
+										style="margin-left:10px"
+										oncomplete="PF('dlgShow').show()">
+										 <p:graphicImage url="../images/icons/edit.png" />
+									</p:commandLink>
+							</p:column>
+						</p:dataTable>
+						
 
-			</p:fieldset>
-				
-				
-			</p:outputPanel>
-						<p:blockUI block="pnlRole" trigger="tblRoles,btnCreateRole">  
+					</p:fieldset>
+				</p:column>
+				<p:column>
+					<p:fieldset
+						legend="Users having this role : #{beanRole.selectedRole.roleName} ">
+
+					</p:fieldset>
+				</p:column>
+			</p:row>
+
+			<p:blockUI block="pnlRole" trigger="tblRoles,btnCreateRole">  
         	LOADING<br />
-				<p:graphicImage value="/images/ajax-loader.gif" />
+				<p:graphicImage value="../images/ajax-loader.gif" />
 			</p:blockUI>
-			</p:outputPanel>
+		</p:panelGrid>
+		<p:dialog modal="true" id="dlgShow" appendToBody="true"  widgetVar="dlgShow" closable="true" draggable="false" height="200" showEffect="explode" hideEffect="bounce">
+			<h:outputText value="Selected Role : #{beanRole.selectedRole.roleName}"/>
+		</p:dialog>
 	</h:form>
-	
+
 
 </ui:composition>
 
