@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/layout.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<p:fieldset legend="Personal Details">
+				<p:panelGrid columns="2"
+					style="margin-left:auto;margin-right:auto;width: 80%;">
+					<h:outputText value="Name" styleClass="inputTextWidth" />
+					<p:inputText value="#{userBean.name}" styleClass="inputTextWidth"></p:inputText>
+					<h:outputText value="Age" styleClass="inputTextWidth" />
+					<p:inputText value="#{userBean.age}" styleClass="inputTextWidth"></p:inputText>
+					<h:outputText value="Sex" styleClass="inputTextWidth" />
+					<p:inputText value="#{userBean.sex}" styleClass="inputTextWidth"></p:inputText>
+					<h:outputText value="Mobile" styleClass="inputTextWidth" />
+					<p:inputText value="#{userBean.mobile}" styleClass="inputTextWidth"></p:inputText>
+					<h:outputText value="Phone" styleClass="inputTextWidth" />
+					<p:inputText value="#{userBean.phone}" styleClass="inputTextWidth"></p:inputText>
+					<h:outputText value="Address" styleClass="inputTextWidth" />
+					<p:inputTextarea value="#{userBean.address}" styleClass="inputTextWidth"/>
+				</p:panelGrid>
+			</p:fieldset>
+			<p:fieldset legend="Login Details" style="margin-top:20px">
+				<p:panelGrid columns="2"
+					style="margin-left:auto;margin-right:auto;width: 80%;">
+					<h:outputText value="User name" styleClass="inputTextWidth" />
+					<p:inputText value="#{userBean.loginName}" styleClass="inputTextWidth"></p:inputText>
+					<h:outputText value="Password" styleClass="inputTextWidth" />
+					<h:inputSecret value="#{userBean.loginPassword}"
+						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-hover inputTextWidth"></h:inputSecret>
+					<h:outputText value="Retype password" />
+					<h:inputSecret
+						styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-hover inputTextWidth">
+					</h:inputSecret>
+				</p:panelGrid>
+			</p:fieldset>
+			<p:panelGrid columns="2">
+				<p:commandButton value="submit" action="#{docSchCtrlBean.createUser}"/>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
